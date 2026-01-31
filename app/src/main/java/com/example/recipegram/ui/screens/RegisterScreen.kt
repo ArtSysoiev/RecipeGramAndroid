@@ -126,13 +126,13 @@ fun RegisterScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LogoHeader()
+//        LogoHeader()
 
         Text(
             text = "Create Account",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(vertical = 30.dp)
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.secondary,
+            modifier = Modifier.padding(bottom = 50.dp)
         )
 
         Box(

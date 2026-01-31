@@ -74,9 +74,9 @@ fun LoginScreen(
 
         Text(
             text = "Welcome back!",
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.padding(bottom = 30.dp)
+            modifier = Modifier.padding(bottom = 50.dp)
         )
 
         AuthInput(

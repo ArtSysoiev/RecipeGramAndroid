@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -22,8 +23,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.recipegram.ui.screens.HomeScreen
 import com.example.recipegram.ui.screens.LoginScreen
+import com.example.recipegram.ui.screens.NewRecipeScreen
+import com.example.recipegram.ui.screens.ProfileScreen
+import com.example.recipegram.ui.screens.RecipeDetailsScreen
 import com.example.recipegram.ui.screens.RegisterScreen
+import com.example.recipegram.ui.viewmodel.AuthViewModel
 
 object Routes {
     const val LOGIN = "login"
@@ -39,6 +45,7 @@ object Routes {
 @Composable
 fun RecipeGramApp() {
     val navController = rememberNavController()
+    val authViewModel: AuthViewModel = hiltViewModel()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -61,6 +68,7 @@ fun RecipeGramApp() {
         ) {
             composable(Routes.LOGIN) {
                 LoginScreen(
+                    viewModel = authViewModel,
                     onLoginSuccess = {
                         navController.navigate(Routes.HOME) {
                             popUpTo(Routes.LOGIN) { inclusive = true }
@@ -72,6 +80,7 @@ fun RecipeGramApp() {
 
             composable(Routes.REGISTER) {
                 RegisterScreen(
+                    viewModel = authViewModel,
                     onRegisterSuccess = {
                         navController.navigate(Routes.HOME) {
                             popUpTo(Routes.LOGIN) { inclusive = true }
@@ -89,6 +98,7 @@ fun RecipeGramApp() {
 
             composable(Routes.NEW_RECIPE) {
                 NewRecipeScreen(
+                    authViewModel = authViewModel,
                     onPublishSuccess = {
                         navController.navigate(Routes.HOME) {
                             popUpTo(navController.graph.findStartDestination().id) { saveState = true }
@@ -99,6 +109,7 @@ fun RecipeGramApp() {
 
             composable(Routes.PROFILE) {
                 ProfileScreen(
+                    authViewModel = authViewModel,
                     onRecipeClick = { id -> navController.navigate(Routes.getDetailsRoute(id)) },
                     onLogout = {
                         navController.navigate(Routes.LOGIN) {
@@ -164,24 +175,4 @@ fun RecipeBottomBar(navController: NavHostController, currentRoute: String?) {
             label = { Text("Profile") }
         )
     }
-}
-
-@Composable
-fun HomeScreen(onRecipeClick: (Long) -> Unit) {
-    Text(text = "Home Screen Placeholder")
-}
-
-@Composable
-fun NewRecipeScreen(onPublishSuccess: () -> Unit) {
-    Text(text = "New Recipe Placeholder")
-}
-
-@Composable
-fun ProfileScreen(onRecipeClick: (Long) -> Unit, onLogout: () -> Unit) {
-    Text(text = "Profile Screen Placeholder")
-}
-
-@Composable
-fun RecipeDetailsScreen(recipeId: Long, onBack: () -> Unit) {
-    Text(text = "Details Screen Placeholder for ID: $recipeId")
 }

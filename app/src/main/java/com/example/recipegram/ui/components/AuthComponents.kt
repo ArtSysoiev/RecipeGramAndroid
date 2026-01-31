@@ -98,10 +98,10 @@ fun LogoHeader() {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "RecipeGram",
-            style = MaterialTheme.typography.displayMedium,
+            style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(80.dp))
     }
 }
