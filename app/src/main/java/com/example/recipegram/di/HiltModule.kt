@@ -31,11 +31,4 @@ object AppModule {
     fun provideDao(database: RecipeGramDatabase): RecipeGramDao {
         return database.dao()
     }
-
-    @Provides
-    @Singleton
-    @ApplicationContext
-    fun provideContext(@ApplicationContext context: Context): Context {
-        return context
-    }
 }
